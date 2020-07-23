@@ -1,0 +1,90 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Language" content="zh-CN">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>短网址,短网址生成,短链接</title>
+    <meta name="Description" content="短网址程序,短网址服务,短网址转换">
+    <meta name="keywords" content="短网址,短网址生成,短链接,网址缩短,短链接生成器,新浪短网址,长网址变短网址,t.cn,域名缩短">
+<!--    测试使用外部资源，避免要启动整个项目才会生效，发布时可以改成内部资源路径-->
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        @media (min-width: 1200px) {
+            .container {
+                width: 751px;
+            }
+        }
+    </style>
+</head>
+<body style="background-color: aliceblue">
+<div class="container">
+    <br>
+    <h1 style="font-size: x-large;" align="center">短网址生成</h1><br>
+    <br>
+    <br>
+    <form id="url">
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                    <textarea rows="5" class="form-control" placeholder="输入短网址" id="longUrl"
+                              name="longurl"></textarea>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-12 col-md-12" align="center">
+                <button type="button" class="btn btn-success" onclick="form_submit()">生 成</button>
+            </div>
+        </div>
+    </form>
+
+    <span id="shortUrl" hidden="hidden" style="font-size: large;color: red">aaa</span>
+
+    <br><br>
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <p>项目说明 &emsp;<a href="https://github.com/wjup/shorturl">【github源码】</a></p>
+            <p>项目架构：springboot、mybatis、thymeleaf(基本没用到，实际还是以ajax)、bootstrap</p>
+            <p>项目数据库：mysql</p>
+        </div>
+    </div>
+    <hr>
+    <div class="foot" align="center">
+        <a href="https://github.com/wjup/shorturl" target="_blank">github</a>&emsp;|&emsp;
+        <a href="https://blog.wjup.top" target="_blank">blog</a>
+        <br><br>
+    </div>
+</div>
+
+<script>
+
+    function form_submit() {
+        var longUrl = $('#longUrl').val();
+        if (longUrl == '') {
+            //去除隐藏
+            $('#shortUrl').removeAttr("hidden");
+            $('#shortUrl').html("请输入网址！")
+        } else {
+            // $.ajax({
+            //     type: 'post',
+            //     url: '/myurl',
+            //     data: {
+            //         longUrl: longurl,
+            //     },
+            //     dataType: 'json',
+            //     success: function (data) {
+            //         alert(data)
+            //         // $('#shortUrl').html(data.shortUrl)
+            //     }
+            // })
+            $.get('myurl' ,{longurl:longUrl},function (data) {
+                $('#shortUrl').removeAttr("hidden");
+                $('#shortUrl').html("短网址："+data)
+            })
+        }
+    }
+
+</script>
+</body>
+</html>
